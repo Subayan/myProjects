@@ -1,0 +1,37 @@
+ private void getJtableReady() {
+        jTable1.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(cmb_productList));
+
+        JTextComponent editor = (JTextComponent) cmb_partyName.getEditor().getEditorComponent();
+        editor.addKeyListener(new KeyAdapter() {
+              public void keyPressed(KeyEvent e) {
+                  if (cmb_partyName.isDisplayable()) cmb_partyName.setPopupVisible(true);
+                    JTextComponent ed = (JTextComponent) e.getSource();
+                    ComboBoxModel<String> model = cmb_partyName.getModel();
+        try {
+                      String  content  =  ed.getDocument().getText(0, ed.getDocument().getLength());
+                      for(int i=0; i < model.getSize(); i++){
+                          if(model.getElementAt(i).startsWith(content)){
+                              System.out.println(" check no " + i);
+                              model.setSelectedItem(i);
+                              break;
+                          }
+                      }
+                      
+        } catch (BadLocationException ex) {
+            Logger.getLogger(SalesInvoiceMakerIF1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        /*
+        ed.setDocument(new PlainDocument() {
+
+            public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+                // insert the string into the document
+                super.insertString(offs, str, a);
+                // get the resulting string
+                String content = getText(0, getLength());
+                 System.out.println(content);   
+                // lookup a matching item 
+//  Object item = lookupItem(content);
+                // select the item (or deselect if null) 
+//  model.setSelectedItem(item);
+            }
+        }); */     }   });
